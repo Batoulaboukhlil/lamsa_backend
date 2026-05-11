@@ -7,9 +7,11 @@ import portfolioRoutes from "./routes/portfolioRoutes";
 import companyRoutes from "./routes/companyRoutes";
 import contactRoutes from "./routes/contactRoutes";
 import serviceImageRoutes from "./routes/serviceImageRoutes";
+import cors from "cors";
 
 const app = express();
 app.use(express.json());
+app.use(cors());
 
 mongoose.connect("mongodb://127.0.0.1:27017/lamsadb")
     .then(() => console.log("MongoDB connected"))

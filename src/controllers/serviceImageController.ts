@@ -1,6 +1,7 @@
 import e, { Request, Response } from "express";
 import Service from "../models/serviceImage";
 import ServiceImage from "../models/serviceImage";
+import mongoose from "mongoose";
 
 export let getServiceImage = async (req: Request, res: Response) => {
     try {
@@ -13,7 +14,34 @@ export let getServiceImage = async (req: Request, res: Response) => {
     catch (error) {
         res.status(500).json({message: "Service image not found"});
     }
-    };
+};
+
+// GET IMG BY SERVICE ID
+interface Params {
+    serviceId: string;
+}
+
+export const getServiceImagesByServiceId = async (
+    req: Request<Params>,
+    res: Response
+) => {
+    console.log("HIT CONTROLLER");
+    try {
+        const { serviceId } = req.params;
+
+        if (!serviceId || Array.isArray(serviceId)) {
+            return res.status(400).json({ message: "Invalid serviceId" });
+        }
+
+        const images = await Service.find({
+            service: new mongoose.Types.ObjectId(serviceId),
+        }).populate("service");
+
+        return res.status(200).json(images);
+    } catch (error) {
+        return res.status(500).json({ message: "Service image not found" });
+    }
+};
 
 
 // GET ALL

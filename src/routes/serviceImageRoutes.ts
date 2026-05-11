@@ -5,6 +5,7 @@ const router = express.Router();
 
 router.get("/", controller.getServiceImages);
 router.get("/:id", controller.getServiceImage);
+router.get("/service/:serviceId", controller.getServiceImagesByServiceId);
 router.post("/", controller.createServiceImage);
 router.delete("/:id", controller.deleteServiceImage);
 export default router;
