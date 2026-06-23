@@ -16,7 +16,6 @@ export let getServiceImage = async (req: Request, res: Response) => {
     }
 };
 
-// GET IMG BY SERVICE ID
 interface Params {
     serviceId: string;
 }
@@ -25,7 +24,6 @@ export const getServiceImagesByServiceId = async (
     req: Request<Params>,
     res: Response
 ) => {
-    console.log("HIT CONTROLLER");
     try {
         const { serviceId } = req.params;
 
@@ -33,10 +31,13 @@ export const getServiceImagesByServiceId = async (
             return res.status(400).json({ message: "Invalid serviceId" });
         }
 
-        const images = await Service.find({
+        const images = await Service.findOne({
             service: new mongoose.Types.ObjectId(serviceId),
         }).populate("service");
 
+        if (!images) {
+            return res.status(404).json({ message: "Service image not found" });
+        }
         return res.status(200).json(images);
     } catch (error) {
         return res.status(500).json({ message: "Service image not found" });

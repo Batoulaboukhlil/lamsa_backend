@@ -2,19 +2,17 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IContactRequest extends Document {
     name: string;
-    phone: string;
     email?: string;
+    serviceName: string;
     message: string;
-    service?: mongoose.Types.ObjectId;
 }
 
 const ContactRequestSchema: Schema = new Schema(
     {
         name: { type: String, required: true },
-        phone: { type: String, required: true },
-        email: { type: String },
+        email: { type: String, required: true },
+        serviceName: { type: String, required: true },
         message: { type: String, required: true },
-        service: { type: Schema.Types.ObjectId, ref: "Service" },
     },
     { timestamps: true }
 );

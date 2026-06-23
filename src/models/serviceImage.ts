@@ -2,13 +2,13 @@ import mongoose, { Schema, Document } from "mongoose";
 
 export interface IServiceImage extends Document {
     service: mongoose.Types.ObjectId;
-    imageUrl: string;
+    imagesUrl: string[];
 }
 
 const ServiceImageSchema: Schema = new Schema(
     {
         service: { type: Schema.Types.ObjectId, ref: "Service", required: true },
-        imageUrl: { type: String, required: true },
+        imagesUrl: { type: [String], required: true },
     },
     { timestamps: true }
 );

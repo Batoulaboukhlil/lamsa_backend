@@ -8,10 +8,14 @@ import companyRoutes from "./routes/companyRoutes";
 import contactRoutes from "./routes/contactRoutes";
 import serviceImageRoutes from "./routes/serviceImageRoutes";
 import cors from "cors";
+import dressCollection from "./models/dressCollection";
+import dressCollectionRouters from "./routes/DressCollectionRouters";
+import dotenv from "dotenv";
 
 const app = express();
 app.use(express.json());
 app.use(cors());
+dotenv.config();
 
 mongoose.connect("mongodb://127.0.0.1:27017/lamsadb")
     .then(() => console.log("MongoDB connected"))
@@ -23,6 +27,7 @@ app.use("/api/contact", contactRoutes);
 app.use("/api/portfolio", portfolioRoutes);
 app.use("/api/company", companyRoutes);
 app.use("/api/service-images", serviceImageRoutes);
+app.use("/api/dress-collections", dressCollectionRouters);
 
 
 app.listen(3000, () => {
