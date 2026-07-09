@@ -17,7 +17,7 @@ app.use(express.json());
 app.use(cors());
 dotenv.config();
 
-mongoose.connect("mongodb://127.0.0.1:27017/lamsadb")
+mongoose.connect(process.env.MONGO_URI as string)
     .then(() => console.log("MongoDB connected"))
     .catch((err: Error) => console.log(err));
 

@@ -4,7 +4,7 @@ import User from "./models/User";
 async function migrate() {
 
     const atlas = await mongoose.createConnection(
-        "mongodb+srv://lamsa_db_user:Cakaz.B123@lamsa.tbd4iqt.mongodb.net/?appName=lamsa"
+        process.env.MONGO_URI as string
     ).asPromise();
 
     const collections = [
