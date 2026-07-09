@@ -2,9 +2,6 @@ import mongoose from "mongoose";
 import User from "./models/User";
 
 async function migrate() {
-    const local = await mongoose.createConnection(
-        "mongodb://localhost:27017/lamsa"
-    ).asPromise();
 
     const atlas = await mongoose.createConnection(
         "mongodb+srv://lamsa_db_user:Cakaz.B123@lamsa.tbd4iqt.mongodb.net/?appName=lamsa"
@@ -22,7 +19,7 @@ async function migrate() {
     ];
 
     for (const collectionName of collections) {
-        const documents = await local.collection(collectionName).find().toArray();
+        const documents = await atlas.collection(collectionName).find().toArray();
 
         if (documents.length) {
             await atlas.collection(collectionName).insertMany(documents);
