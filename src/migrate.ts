@@ -10,13 +10,28 @@ async function migrate() {
         "mongodb+srv://lamsa_db_user:Cakaz.B123@lamsa.tbd4iqt.mongodb.net/?appName=lamsa"
     ).asPromise();
 
-    const users = await local.collection("users").find().toArray();
+    const collections = [
+        "categories",
+        "companyinfos",
+        "contactrequests",
+        "dresscollections",
+        "portfolios",
+        "serviceimages",
+        "services",
+        "users",
+    ];
 
-    if (users.length) {
-        await atlas.collection("users").insertMany(users);
+    for (const collectionName of collections) {
+        const documents = await local.collection(collectionName).find().toArray();
+
+        if (documents.length) {
+            await atlas.collection(collectionName).insertMany(documents);
+            console.log(`Migrated ${documents.length} documents to ${collectionName}`);
+        } else {
+            console.log(`No documents found in ${collectionName}`);
+        }
     }
-
-    console.log(`Migrated ${users.length} users`);
+    console.log("Migrated successfully");
     process.exit(0);
 }
 
