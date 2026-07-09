@@ -7,6 +7,7 @@ export const getServices = async (req: Request, res: Response) => {
         const services = await Service.find().populate("category");
         res.json(services);
     } catch (error) {
+        console.error(error);
         res.status(500).json({ message: "Error fetching services" });
     }
 };
